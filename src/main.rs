@@ -1,3 +1,7 @@
+mod watcher;
+mod git;
+
+
 use casual;
 use ctrlc;
 use notify::{watcher, DebouncedEvent, RecursiveMode, Watcher};
