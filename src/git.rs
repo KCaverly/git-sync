@@ -14,7 +14,7 @@ impl Git {
                 .status()
                 .unwrap();
 
-            if cmd.sucess() {
+            if cmd.success() {
                 println!("{}", format!("ADDED TO GIT: {path}"));
             }
         }

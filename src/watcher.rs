@@ -20,7 +20,7 @@ impl FolderWatcher {
         }
     }
 
-    pub fn watch(path: &str, duration: u64) {
+    pub fn watch(directory: &str, duration: u64) {
         // Create a channel to recieve the events.
         let (sender, receiver) = channel();
 
@@ -33,7 +33,7 @@ impl FolderWatcher {
 
         loop {
             match receiver.recv() {
-                Ok(event) => Self::register_event(event),
+                Ok(event) => Self::register_event(directory, event),
                 Err(e) => println!("watch error: {:?}", e),
             }
         }
