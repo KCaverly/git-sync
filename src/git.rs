@@ -1,11 +1,9 @@
-use casual;
 use std::process;
 
 pub struct Git {}
 
 impl Git {
     pub fn add(repo_directory: &str, path: &str) {
-        println!("file!");
         if !path.contains(".git") {
             let cmd = process::Command::new("git")
                 .args(vec!["add", &path])
@@ -21,22 +19,17 @@ impl Git {
     }
 
     pub fn commit(repo_directory: &str, message: &str) {
-        println!("message!");
         let cmd = process::Command::new("git")
             .args(vec!["commit", "-m", message])
             .stdout(process::Stdio::null())
             .current_dir(repo_directory)
             .status()
             .unwrap();
-    }
 
-    pub fn ask_for_commit_message() -> String {
-        let commit_message: String = casual::prompt("Please enter commit message: ").get();
-        return commit_message;
+        println!("GIT COMMITTED: {}", cmd.success());
     }
 
     pub fn push(repo_directory: &str) {
-        println!("Pushing!");
         let cmd = process::Command::new("git")
             .arg("push")
             .stdout(process::Stdio::null())
@@ -44,5 +37,19 @@ impl Git {
             .current_dir(repo_directory)
             .status()
             .unwrap();
+
+        println!("GIT PUSHED: {}", cmd.success());
+    }
+
+    pub fn pull(repo_directory: &str) {
+        let cmd = process::Command::new("git")
+            .arg("pull")
+            .stdout(process::Stdio::null())
+            .stderr(process::Stdio::null())
+            .current_dir(repo_directory)
+            .status()
+            .unwrap();
+
+        println!("GIT PULLED: {}", cmd.success());
     }
 }
